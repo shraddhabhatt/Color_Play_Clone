@@ -1,0 +1,518 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Color Play</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tracking.js/1.1.3/tracking-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.2/dat.gui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Bungee|Ubuntu:300,300i" rel="stylesheet">
+    
+  <script src="color_camera_gui.js"></script>
+  <style>
+  body{
+  }
+  video, canvas {
+    
+    margin-top: 30px;
+    position: absolute;
+  }
+  
+  canvas{
+    padding-left: 90px;
+  }
+ /*this is made by Rupali for btn navbar */ 
+.demo-title1{
+  margin-left: 100px;
+
+}
+/*this is made by Shraddha for title */
+.demo-title{
+  background-color: #000;
+}
+
+.demo-title h1 {
+   font-family: 'Bungee', cursive;
+   font-size: 50px !important;
+   color: #fff;
+   background-image:url("http://eusic.challenges.org/wp-content/uploads/sites/6/2015/11/header-image-5.jpg");
+   text-align: center;
+   letter-spacing: 4px;
+}
+.demo-container {
+ width: 100%;
+ height: 530px;
+ position: relative;
+ background: #eee;
+ overflow: hidden;
+ border-bottom-right-radius: 10px;
+ border-bottom-left-radius: 10px;
+}
+
+/*this is made by Shraddha for video frame */
+.demo-frame{
+  width: 854px;
+ height: 658px;
+ position: fixed;
+ /*top changed by Rupali*/
+ top: 15%;
+ left: 30%;
+ padding: 20px 20px 45px 34px;
+ overflow: hidden;
+ -webkit-box-sizing: border-box;
+ -moz-box-sizing: border-box;
+ -ms-box-sizing: border-box;
+ box-sizing: border-box;
+}
+
+/*this is for cyan btn*/
+.btnCyan{
+  background-color: cyan;
+}
+/* this is for magenta btn*/
+.btnMagenta{
+  background-color: magenta;
+  }
+
+/*setting for all btn-- before it was different in text length size*/
+.btn{
+    width: 130px;
+    margin-left:10px;
+  }
+
+  .sidenav {
+    height: 100%;
+    width: 260px;
+    position: fixed;
+    /*z-index: 1;*/
+    /*top: 0;*/
+    left: 0;
+    margin-top:0px;
+    overflow-x: hidden;
+    padding-top: 120px;
+    /*float: left;*/
+    background-image:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyQpY9vOJ-HrFlHzaIsQZXY0FuFsdlfYIkNQ7VvrSMAgTZadQ8");
+    background-size: cover;
+  }
+
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+ h5 , p{ color: white; 
+ text-align: center;}
+#score{
+    color: black;
+    text-align: center;
+}
+.scorecircle{
+    position: relative;
+    width:80px;
+    height:80px;
+    background:#ecf0f1;
+    border:solid 5px #2c3e50;
+    border-radius:100%;
+    overflow:hidden;
+}
+#scoretitle{
+   text-align: center;
+   float: left;
+   padding-left: 10px;
+}
+#timer{
+    
+    float: left;
+    padding-top: 30px;
+    padding-left: 60px;
+}
+.circle{
+    position: relative;
+    width:80px;
+    height:80px;
+    background:#ecf0f1;
+    border:solid 5px #2c3e50;
+    border-radius:100%;
+    overflow:hidden;
+    animation: rotates 15s infinite linear;
+    -webkit-animation: rotates 15s infinite linear;
+}
+.up{
+    width: 30px;
+    height: 40px;
+    left:25px;
+    overflow:hidden;
+    background:#cef;
+    position:absolute;
+}
+.up:before,.up:after{
+    content:"";
+    width:30px;height:30px;
+    background:#ecf0f1;
+    position:absolute;
+    z-index:1;
+}
+.up:before{
+    top:30px;
+    left:-17px;
+    transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+}
+.up:after{
+    top:30px; left:17px;
+    transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+}
+.innera{
+    position:relative;
+    top:15px;
+    width:30px;height:30px;
+    background:#f1c40f;
+    animation: mymove 15s infinite linear;
+    -webkit-animation: mymove 15s infinite linear;
+}
+.down{
+    width: 30px;
+    height: 40px;
+    left:25px;
+    top:40px;
+    overflow:hidden;
+    background:#cef;
+    position:absolute;
+    z-index:1;
+}
+.down:before,.down:after{
+    content:"";
+    width:30px;
+    height:40px;
+    background:#ecf0f1;
+    position:absolute;
+    z-index:1;
+}
+.down:before{
+    top:-25px;
+    left:-17px;
+    transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+}
+.down:after{
+    top:-25px;
+    left:24px;
+    transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+}
+.innerb{
+    position:relative;
+    top:40px;
+    width:30px;height:30px; background:#f1c40f;
+    animation: mymoveb 15s infinite linear;
+    -webkit-animation: mymoveb 15s infinite linear;
+}
+@keyframes mymove{
+    0%{top:15px;}
+    100%{top:45px;}
+}
+@keyframes mymoveb{
+    0%{top:40px;}
+    90%{top:20px;}
+    100%{top:-5px;}
+}
+@keyframes rotates{
+    0%{transform:rotate(0deg);}
+    80%{transform:rotate(0deg);}
+    100%{transform:rotate(180deg);}
+}
+@-webkit-keyframes mymove{
+    0%{top:15px;}
+    100%{top:45px;}
+}
+@-webkit-keyframes mymoveb{
+    0%{top:40px;}
+    90%{top:20px;}
+    100%{top:-5px;}
+}
+@-webkit-keyframes rotates{
+    0%{-webkit-transform:rotate(0deg);}
+    80%{-webkit-transform:rotate(0deg);}
+    100%{-webkit-transform:rotate(180deg);}
+}
+
+
+  </style>
+
+</head>
+
+
+<body >
+  <div class="demo-title">
+    <h1>Color - Play</h1>
+       <div class="demo-title1">
+          <button id="blue" type="button" onclick="checktrack('blue')" class="btn btn-primary btn-lg">BLUE</button>
+          <button id="green" type="button" onclick="checktrack('green')" class="btn btn-success btn-lg">GREEN</button>
+          <button id="red" type="button" onclick="checktrack('red')" class="btn btn-danger btn-lg">RED</button>
+          <button id="yellow" type="button" onclick="checktrack('yellow')" class="btn btn-warning btn-lg">YELLOW</button>
+          <button id="white" type="button" onclick="checktrack('white')" class="btn btn-light btn-lg">WHITE</button>
+          <button id="black" type="button" onclick="checktrack('black')" class="btn btn-dark btn-lg">BLACK</button>
+          <button id="cyan" type="button" onclick="checktrack('cyan')" class="btn btnCyan  btn-lg">CYAN</button>
+          <button id="magenta" type="button" onclick="checktrack('magenta')" class="btn btnMagenta btn-lg">MAGENTA</button>
+        </div>
+  </div>
+   <!-- sidebar -->
+   <div class="sidenav">
+    <div id="message">
+      <h5> INSTRUCTIONS </h5><br>
+      <p>1: Click on the color button.</p><br/><br>
+      <p>2: Find any object with the same color near to you.</p>
+    </div>
+      <hr/>
+      <button type="button" id="speak" class="btn btn-primary btn-sm" style="width: 200px; margin-left: 30px;">Listen Instructions</button>
+      <br/>
+      <div id="timer">
+          <div class="circle">
+              <div class="up">
+                <div class="innera"></div>
+              </div>
+              <div class="down">
+                <div class="innerb"></div>
+              </div>
+          </div>
+          <p id="timeleft">00:00</p>
+      </div>
+      <hr/>
+      <div>
+          <div class="scorecircle">
+             <H2 id="score">0</H2>
+          </div>
+          <p id="scoretitle">SCORE</p>
+      </div>
+   </div>
+      
+  <div class="container-fluid col-md-12">
+    <div class="row panel">
+      <div class="col-md-8">
+        <div class="demo-frame">
+          <div class="demo-container">
+              <video id="video" width="800" height="450" preload autoplay loop muted controls></video>
+              <canvas id="canvas" width="600" height="450"></canvas>
+
+          </div>
+          <div class="row justify-content-center">
+            <button type="button" class="btn btn-info" onclick="starttrack()">Start</button><br>
+            <button type="button" class="btn btn-danger" onclick="stoptrack()">Stop</button>
+          </div>
+        </div>
+        
+      </div>
+        <div class="col-md-4">
+        </div>
+      </div>
+    </div>
+  
+  <script>
+    var trackTask;
+    var video = document.getElementById('video');
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var timer = 60;
+    var intervalId;
+    var running = false;
+    var found = false;
+    var score = 0;
+    var BreakException = {};
+    var tracker;
+
+    window.onload = function() {
+
+       console.log("Hello");
+
+
+      $(function(){
+        if ('speechSynthesis' in window)
+         {
+            speechSynthesis.onvoiceschanged = function() 
+            {
+              var $voicelist = $('#voices');
+              if($voicelist.find('option').length == 0) 
+              {
+                speechSynthesis.getVoices().forEach(function(voice, index) 
+                {
+                  var $option = $('<option>')
+                  .val(index)
+                  .html(voice.name + (voice.default ? ' (default)' :''));
+                  $voicelist.append($option);
+                });
+              }
+            }
+
+            $('#speak').click(function()
+            {
+              console.log("I'm clicked");
+
+              var text = $('#message').text();
+              var msg = new SpeechSynthesisUtterance();
+              var voices = window.speechSynthesis.getVoices();
+      
+              msg.text = text;
+              msg.onend = function(e)
+              {
+                console.log('Finished in ' + event.elapsedTime + ' seconds.');
+              };
+              speechSynthesis.speak(msg);
+            })
+          }
+      });
+
+
+      tracking.ColorTracker.registerColor('green', function(r, g, b) {
+        if (r < 80 && g > 90 && b < 100) {
+          return true;
+        }
+        return false;
+      });
+      tracking.ColorTracker.registerColor('red', function(r, g, b) {
+        if (r > 200 && g < 100 && b < 60) {
+          return true;
+        }
+        return false;
+      });
+      tracking.ColorTracker.registerColor('blue', function(r, g, b) {
+        if (r < 50 && g < 140 && b > 100) {
+          return true;
+        }
+        return false;
+      });
+      tracking.ColorTracker.registerColor('black', function(r, g, b) {
+        if (r === g && g === b && b === r) {
+          return true;
+        }
+        return false;
+      });
+      tracking.ColorTracker.registerColor('white', function(r, g, b) {
+        if (r > 244 && g > 240 && b > 220) {
+          return true;
+        }
+        return false;
+      });
+
+      tracker = new tracking.ColorTracker(["green","blue"]);
+
+      trackTask = tracking.track('#video', tracker, { camera: true });
+
+      tracker.on('track', function(event) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        if(event.data.length === 1){
+          found = true;
+        }
+        try{
+            if(found)
+            {
+              event.data.forEach(function(rect) {
+
+                 // context.strokeStyle = rect.color;
+                  context.fillRect(rect.x, rect.y, rect.width, rect.height);
+                  context.font = '11px Helvetica';
+                  context.fillStyle = rect.color;
+                  context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+                  context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+                 // found = true;
+                  trackTask.stop();     
+                  $("#score").text(score);
+                  found = false;
+                  score += 1 ;
+                 // alert("yay you got it !!");
+                  if(!found)
+                      throw BreakException;
+              });
+              
+           }
+        }
+        catch(e)
+        {
+            if (e !== BreakException) throw e;
+        }
+         
+      });
+      
+     // initGUIControllers(tracker);
+        }
+      
+    
+
+    function starttrack(){
+      trackTask.run();
+    }
+
+    function stoptrack(){
+      trackTask.stop();
+    }
+    function checktrack(color){
+      score = 0;
+      console.log("clicked" + color);
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      tracker.setColors([color]);
+      stoptimer();
+      runTimer();
+ 
+    }
+    //timer start
+    function runTimer(){
+      timer = 60;
+      if (!running) {
+      intervalId = setInterval(decrement, 1000); 
+      running = true;
+      }
+    }
+
+    function decrement() {
+  
+      $("#timeleft").text(timeConverter(timer));
+      //stop timer if reach 0
+      if (timer === 0) {
+           stoptrack();
+           stoptimer();
+      } 
+      timer--;
+    }
+
+    function timeConverter(t) {
+
+        //  Takes the current time in seconds and convert it to minutes and seconds (mm:ss).
+        var minutes = Math.floor(t / 60);
+        var seconds = t - (minutes * 60);
+
+        if (seconds < 10) {
+          seconds = "0" + seconds;
+        }
+
+        if (minutes === 0) {
+          minutes = "00";
+        }
+
+        else if (minutes < 10) {
+          minutes = "0" + minutes;
+        }
+
+        return minutes + ":" + seconds;
+      }
+
+    //timer stop
+    function stoptimer() {
+        timer = 0;
+        running = false;
+        clearInterval(intervalId);
+
+    }
+
+  </script>
+
+</body>
+</html>

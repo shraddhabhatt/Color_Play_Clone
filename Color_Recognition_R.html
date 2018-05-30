@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Color Play</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link rel="stylesheet" href="colormatch.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tracking.js/1.1.3/tracking-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.2/dat.gui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
+  <!-- Compiled and minified CSS 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">-->
+  <!-- Compiled and minified JavaScript 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>-->
+  <!-- google fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Bungee|Ubuntu:300,300i" rel="stylesheet">
+    
+  <script src="color_camera_gui.js"></script>
+  <style>
+  video, canvas {
+    
+    margin-top: 35px;
+    position: absolute;
+  }
+  
+  .btn{
+    width: 130px;
+  }
+  .sidenav {
+    height: 100%;
+    width: 260px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+    float: right;
+}
+.sidenav a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+.main {
+    margin-left: 160px; /* Same as the width of the sidenav */
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+}
+/* .imgpallet:hover{
+  width: 300px;
+  height: 100px;
+  margin: 5px;
+} */
+h1{
+  background-color: red;
+}
+.demo-title1{
+  margin-left: 100px;
+  
+}
+.demo-title{
+background-color: #616A6B;
+}
+.demo-frame{
+  margin-top: 1px;
+}
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+.btnCyan{
+  background-color: cyan;
+}
+.btnMagenta{
+  background-color: magenta;
+  }
+  </style>
+</head>
+<body >
+  <div class="demo-title">
+    <h1>Color - Play</h1>
+       <div class="demo-title1">
+          <!-- <img class="imgpallet" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Red.svg/2000px-Red.svg.png" width="50px"  height="50px">
+          <br>
+          <img class="imgpallet" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Green_square.svg/2000px-Green_square.svg.png" width="50px"  height="50px">
+          <br>
+          <img class="imgpallet" src="http://s01.yapfiles.ru/files/364325/ultramarin.png" width="50px"  height="50px">
+          <br>
+          <img class="imgpallet" src="https://78.media.tumblr.com/6f103f7555cb3132aa79ecefd7ae08b9/tumblr_inline_nygurldcu81qafcse_400.png" width="50px"  height="50px">
+          <br>
+          <img class="imgpallet" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-svC7qyAXioxOkgxtmW-YU53ddwn-8a_kxaq0290Ym5bhy1Sa" width="50px"  height="50px">
+          <br>
+          <img class="imgpallet" src="https://redanglespanish.files.wordpress.com/2013/11/kazimir-malevich-black-square.jpg" width="50px"  height="50px">
+          <br>
+          <img class="imgpallet" src="https://png.pngtree.com/element_origin_min_pic/03/83/18/3957d4beef30bb7.jpg" width="50px"  height="50px">
+          <br>
+          <img class="imgpallet" src="https://www.colorcombos.com/images/colors/FF0080.png" width="50px"  height="50px"> -->
+          <button type="button" class="btn btn-primary btn-lg">BLUE</button>
+          <button type="button" class="btn btn-success btn-lg">GREEN</button>
+          <button type="button" class="btn btn-danger btn-lg">RED</button>
+          <button type="button" class="btn btn-warning btn-lg">YELLOW</button>
+          <button type="button" class="btn btn-light btn-lg">WHITE</button>
+          <button type="button" class="btn btn-dark btn-lg">BLACK</button>
+          <button type="button" class="btn btnCyan  btn-lg">CYAN</button>
+          <button type="button" class="btn btnMagenta btn-lg">MAGENTA</button>
+        </div>
+  </div>
+    <!-- sidebar -->
+  <!-- <div class="sidenav"> -->
+    <!-- <div class="jumbotron" style="margin-top: 450px;">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Red.svg/2000px-Red.svg.png" width="50px"  height="50px">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Green_square.svg/2000px-Green_square.svg.png" width="50px"  height="50px">
+          <br>
+          <img src="http://s01.yapfiles.ru/files/364325/ultramarin.png" width="50px"  height="50px">
+          <img src="https://78.media.tumblr.com/6f103f7555cb3132aa79ecefd7ae08b9/tumblr_inline_nygurldcu81qafcse_400.png" width="50px"  height="50px">
+          <br>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-svC7qyAXioxOkgxtmW-YU53ddwn-8a_kxaq0290Ym5bhy1Sa" width="50px"  height="50px">
+          <img src="https://qph.fs.quoracdn.net/main-qimg-1964d775917eaf161d4b85361442a981" width="50px"  height="50px">
+          <br>
+          <img src="https://png.pngtree.com/element_origin_min_pic/03/83/18/3957d4beef30bb7.jpg" width="50px"  height="50px">
+          <img src="https://www.colorcombos.com/images/colors/FF0080.png" width="50px"  height="50px">
+    </div>  -->
+      
+ <!-- </div> -->
+   
+  <div class="container-fluid col-md-12">
+    <div class="row panel">
+      <div class="col-md-8">
+        <div class="demo-frame">
+          <div class="demo-container">
+              <video id="video" width="800" height="450" preload autoplay loop muted controls></video>
+              <canvas id="canvas" width="600" height="450"></canvas>
+          </div>
+          <div class="row justify-content-center">
+            <button type="button" class="btn btn-info" onclick="starttrack()">Start</button><br>
+            <button type="button" class="btn btn-danger" onclick="stoptrack()">Stop</button>
+          </div>
+        </div>
+        
+      </div>
+        <div class="col-md-4">
+            <div id="datgui"></div>
+        </div>
+        
+      </div>
+    </div>
+  
+  <script>
+    var trackTask;
+    window.onload = function() {
+      var video = document.getElementById('video');
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      tracking.ColorTracker.registerColor('green', function(r, g, b) {
+        if (r < 80 && g > 90 && b < 100) {
+          return true;
+        }
+        return false;
+      });
+      tracking.ColorTracker.registerColor('red', function(r, g, b) {
+        if (r > 200 && g < 100 && b < 60) {
+          return true;
+        }
+        return false;
+      });
+      tracking.ColorTracker.registerColor('blue', function(r, g, b) {
+        if (r < 50 && g < 140 && b > 100) {
+          return true;
+        }
+        return false;
+      });
+      tracking.ColorTracker.registerColor('black', function(r, g, b) {
+        if (r === g && g === b && b === r) {
+          return true;
+        }
+        return false;
+      });
+      tracking.ColorTracker.registerColor('white', function(r, g, b) {
+        if (r > 244 && g > 240 && b > 220) {
+          return true;
+        }
+        return false;
+      });
+      var tracker = new tracking.ColorTracker(["green","blue"]);
+      trackTask = tracking.track('#video', tracker, { camera: true });
+      tracker.on('track', function(event) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        event.data.forEach(function(rect) {
+            context.strokeStyle = rect.color;
+            context.strokeRect(rect.x, rect.y, rect.width, rect.height);
+            context.font = '11px Helvetica';
+            context.fillStyle = "#fff";
+            context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
+            context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+          switch (rect.color) {
+            case 'red':
+                console.log("Color Red");
+                checktrack('red');
+                break;
+            case 'yellow':
+                console.log("Color yellow");
+                checktrack('yellow');
+                break;
+            case 'blue':
+                console.log("Color blue");
+                checktrack('blue');
+                break;
+            case 'green':
+                console.log("Color green");
+                checktrack('green');
+                break;
+            case 'black':
+                console.log("Color black");
+                checktrack('black');
+                break;
+            case 'white':
+                console.log("Color white");
+                checktrack('white');
+                break;
+            case 'cyan':
+                console.log("Color cyan");
+                checktrack('cyan');
+                break;
+            case 'magenta':
+                console.log("Color magenta");
+                checktrack('magenta');
+                break;
+            default:
+                console.log("Something went horribly wrong...");
+                break;
+            }
+            
+         });
+      });
+      
+      initGUIControllers(tracker);
+    };
+    function starttrack(){
+      trackTask.run();
+    }
+    function stoptrack(){
+      trackTask.stop();
+    }
+    function checktrack(color){
+       /*trackTask.stop();
+        if(confirm("You found "+color+".... Want to play more ??"))
+        {            
+            trackTask.run();
+        }
+        else
+        {
+            camera:false;
+        }*/
+    }
+  </script>
+</body>
+</html>
